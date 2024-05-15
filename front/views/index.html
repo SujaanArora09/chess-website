@@ -1,0 +1,138 @@
+<html>
+    <head>
+        {{> head}}
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <body style="background: url(/public/background.jpg); background-size: cover;">
+        <div id="main">
+
+        
+        <img id="heading" src="/public/landing-page-heading.png"></img>        
+        <div id="mid-part">
+        <input id="codeInput" placeholder="Enter Code" type="text" name="text" class="input">
+        <button>
+            <span id="createGame" class="button_top"> Create Game
+            </span>
+        </button>
+        <button>
+            <span class="button_top" id="joinGame" > Join Game
+            </span>
+        </button>
+        </div>
+        <!-- <div style="color: red" id="errorMessage"></div> -->
+        <img id="landing-page-image" src="/public/landing-page-image.png"></img>
+        </div>
+        <style>
+            body{
+                width: 100vw;
+                height: 100vh;
+                position: fixed;
+            }
+            #main{
+                display: flex;
+                height: 100%;
+                width: 100%;
+                flex-direction: column;
+                gap : 40px;
+                align-items: center;
+                
+            }
+            #heading{
+                width: 70%;
+                margin-top: 2%;
+            }
+            #mid-part{
+                
+                margin-top: 70px;
+                width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                align-items: center;
+            }
+            #landing-page-image{
+                max-width: 70%;
+                position: absolute;
+                bottom: 0;
+                left: 17%;
+                z-index: -1;
+            }
+            button {
+                width: 220px;
+                --button_radius: 0.75em;
+                --button_color: #CC7031;
+                --button_outline_color: #FCFDF5;
+                font-size: 17px;
+                font-weight: bold;
+                border: none;
+                border-radius: var(--button_radius);
+                background: var(--button_outline_color);
+            }
+            #joinGame{
+                background: #3E895E;
+            }
+            .button_top {
+                display: block;
+                box-sizing: border-box;
+                border: 2px solid var(--button_outline_color);
+                border-radius: var(--button_radius);
+                padding: 0.75em 1.5em;
+                background: var(--button_color);
+                color: var(--button_outline_color);
+                transform: translateY(-0.2em);
+                transition: transform 0.1s ease;
+            }
+
+            button:hover .button_top {
+                /* Pull the button upwards when hovered */
+                transform: translateY(-0.33em);
+            }
+
+            button:active .button_top {
+                /* Push the button downwards when pressed */
+                transform: translateY(0);
+            }
+            .input {
+                width: 100%;
+                max-width: 300px;
+                height: 45px;
+                padding: 12px;
+                border-radius: 12px;
+                font-weight: bold;
+                font-size: larger;
+                text-align: center;
+                outline: none;
+                transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+                box-shadow: 0px 0px 20px -18px;
+            }
+
+            .input:hover {
+                
+                box-shadow: 0px 0px 20px -17px;
+            }
+
+            .input:active {
+                transform: scale(0.95);
+            }
+
+            
+        </style>
+        <script>
+                $(document).ready(function() {
+                    $('#createGame').on('click', function() {
+                        window.location.replace('/white?code=' + $('#codeInput').val());
+                    });
+
+                    $('#joinGame').on('click', function() {
+                        window.location.replace('/black?code=' + $('#codeInput').val());
+                    });
+
+                    var urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.get('error') == 'invalidCode') {
+                        $('#errorMessage').text('Invalid invite code');
+                    }
+                });
+        </script>
+
+    </body>
+</html>
